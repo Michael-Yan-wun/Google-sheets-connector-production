@@ -46,7 +46,7 @@
 ```ini
 EMAIL_USER=yanwun1214@gmail.com
 EMAIL_PASS=您的16字元應用程式密碼
-SPREADSHEET_ID=1cngbAvDbb3h7uZwmQZeR4cp3xecRaPgDEbZKA4PMOhk
+SPREADSHEET_ID=your_spreadsheet_id_here
 GOOGLE_APPLICATION_CREDENTIALS=./credentials.json
 PORT=3000
 ```

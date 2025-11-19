@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Email Connector</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="bg-grid"></div>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <span class="icon">⚡</span>
+                    <h1>G-SHEETS <span class="highlight">CONNECTOR</span></h1>
+                </div>
+                <p>自動化郵件回覆系統 // 數據監控中心</p>
+            </div>
+            <div class="actions">
+                <button id="refreshBtn" class="btn secondary">
+                    <span class="btn-icon">↻</span> 重新整理
+                </button>
+                <button id="executeBtn" class="btn primary">
+                    <span class="btn-icon">▶</span> 執行自動回覆
+                </button>
+            </div>
+        </header>
+
+        <div id="status" class="status-message"></div>
+
+        <main class="dashboard">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>總使用者</h3>
+                    <div class="value" id="totalUsers">0</div>
+                    <div class="label">Total Users</div>
+                </div>
+                <div class="stat-card pending">
+                    <h3>待處理</h3>
+                    <div class="value" id="pendingUsers">0</div>
+                    <div class="label">Pending</div>
+                </div>
+                <div class="stat-card success">
+                    <h3>已回覆</h3>
+                    <div class="value" id="repliedUsers">0</div>
+                    <div class="label">Replied</div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>回覆狀態分佈</h3>
+                    <div class="chart-container">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>每日新增使用者</h3>
+                    <div class="chart-container">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="table-section">
+                <h3>詳細資料列表</h3>
+                <div class="table-container">
+                    <table id="dataTable">
+                        <thead>
+                            <tr id="tableHead">
+                                <!-- Headers will be injected here -->
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <!-- Data will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

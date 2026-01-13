@@ -14,10 +14,31 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Google Sheets Setup
-const auth = new google.auth.GoogleAuth({
-    keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-});
+const getAuth = () => {
+    if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
+        try {
+            const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+            // Fix: ensure private_key handles \n correctly
+            if (credentials.private_key) {
+                credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
+            }
+            return new google.auth.GoogleAuth({
+                credentials,
+                scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+            });
+        } catch (err) {
+            console.error('Error parsing GOOGLE_SERVICE_ACCOUNT_JSON:', err);
+        }
+    }
+
+    // Fallback to keyFile if the JSON env var is not present or failed to parse
+    return new google.auth.GoogleAuth({
+        keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS || path.join(__dirname, 'credentials.json'),
+        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+};
+
+const auth = getAuth();
 
 const sheets = google.sheets({ version: 'v4', auth });
 const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
